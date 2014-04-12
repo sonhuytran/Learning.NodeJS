@@ -1,0 +1,14 @@
+{
+  "name": "test-app",
+  "version": "0.0.1",
+  "author": "Son-Huy TRAN",
+  "private": true,
+  "description": "My very first express.js application",
+  "dependencies": {
+    "express": "*",
+    "jade": "*"
+  },
+  "engines": {
+    "node": ">=0.6"
+  }
+}
