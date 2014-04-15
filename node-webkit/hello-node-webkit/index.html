@@ -1,8 +1,58 @@
 <html>
-	<head>
-		<title>Hello World!</title>
-	</head>
-	<body>
-		<h1>Hello World!</h1>
-	</body>
+<body>
+<script>
+    // remove all white spaces, tabs, new lines
+    function removeWhiteSpaces(string) {
+        return string.replace(/\s+/g, "");
+    }
+
+    /*$(document).ready(function(){
+     $("#button_calculate").click(function(){
+     // Get the input expression
+
+     var expression = removeWhiteSpaces($("#input_expression").val());
+     var tokens = expression.match(/(\d)+|\+|-|\*|\/|\^|\(|\)/g);
+     $("#result").text(tokens + " : " + tokens.length + " tokens");
+
+     var outputQueue = new Array();
+     var operatorStack = new Array();
+
+     for (var i = 0; i < tokens.length; i++) {
+     var token = tokens[i];
+
+     if (isNaN(token)) {
+     if (token == "(") {
+     operatorStack.push(token);
+     }
+     // an operator found
+
+     } else {
+     // an operand (number) found
+     outputQueue.unshift(token);
+     }
+     }
+     });
+     });*/
+
+    var txtInputExpression;
+    var btnCalculate;
+    var divResult;
+
+    onload = function () {
+        txtInputExpression = document.getElementById("input_expression");
+        btnCalculate = document.getElementById("button_calculate");
+        divResult = document.getElementById("result");
+
+        btnCalculate.onclick = function() {
+            var inputString = txtInputExpression.value;
+            divResult.innerText = inputString;
+        };
+    };
+</script>
+<div id="rpn_calculator">
+    <input type="text" id="input_expression" value="3+5"></input>
+    <input type="button" id="button_calculate" value="Convert from infix to postfix"></input>
+    <div id="result"></div>
+</div>
+</body>
 </html>
