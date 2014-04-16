@@ -1,4 +1,7 @@
 <html>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
 <body>
 <script>
     // remove all white spaces, tabs, new lines
@@ -34,24 +37,77 @@
      });
      });*/
 
+	var gui;
+	var win;
+	 
     var txtInputExpression;
     var btnCalculate;
     var divResult;
+	var cmbOperationType;
 
     onload = function () {
+		gui = require('nw.gui');
+		
+		// Get the current window
+		win = gui.Window.get();
+		win.title = "Expression Calculator";
+	
         txtInputExpression = document.getElementById("input_expression");
+		
         btnCalculate = document.getElementById("button_calculate");
+		btnCalculate.onclick = btnCalculateOnClick;
+		
         divResult = document.getElementById("result");
-
-        btnCalculate.onclick = function() {
-            var inputString = txtInputExpression.value;
-            divResult.innerText = inputString;
-        };
+		
+		cmbOperationType = document.getElementById("cmbOperationType");
+		cmbOperationType.onchange = cmbOperationTypeOnChange;
     };
+	
+	btnCalculateOnClick = function() {
+		var inputString = txtInputExpression.value;
+        divResult.innerText = inputString;
+	}
+	
+	cmbOperationTypeOnChange = function() {
+		divResult.innerText = cmbOperationType.selectedIndex;
+	};
 </script>
 <div id="rpn_calculator">
-    <input type="text" id="input_expression" value="3+5"></input>
-    <input type="button" id="button_calculate" value="Convert from infix to postfix"></input>
+	<table>
+		<tr>
+			<td class="label_cell"><label for="cmbOperationType">Select an operation&nbsp;:&nbsp;</label></td>
+			<td>
+				<select id="cmbOperationType"
+						type="select-one">
+					<optgroup label="Conversion">
+						<option>Infix to Prefix</option>
+						<option selected="true">Infix to Postfix</option>
+						<option>Prefix to Infix</option>
+						<option>Prefix to Postfix</option>
+						<option>Postfix to Prefix</option>
+						<option>Postfix to Infix</option>
+					</optgroup>
+					<optgroup label="Expression Calculation">
+						<option>Infix</option>
+						<option>Prefix</option>
+						<option>Postfix</option>
+					</optgroup>
+				</select>
+			</td>
+		<tr>
+		<tr>
+			<td class="label_cell"><label for="input_expression">Enter an expression&nbsp;:&nbsp;</label></td>
+			<td>
+				<input type="text" id="input_expression" value="3+5"></input>
+			</td>
+		<tr>
+		<tr>
+			<td colspan="2" style="text-align:center;">
+				<input type="button" id="button_calculate" value="Calculate"></input>
+			</td>
+		</tr>
+	<table>  
+    
     <div id="result"></div>
 </div>
 </body>
