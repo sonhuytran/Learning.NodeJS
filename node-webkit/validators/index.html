@@ -1,0 +1,141 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="nw-desktop-notifications.js"></script>
+</head>
+<body>
+<script>
+    // remove all white spaces, tabs, new lines
+    function removeWhiteSpaces(string) {
+        return string.replace(/\s+/g, "");
+    }
+
+    /*$(document).ready(function(){
+     $("#button_calculate").click(function(){
+     // Get the input expression
+
+     var expression = removeWhiteSpaces($("#input_expression").val());
+     var tokens = expression.match(/(\d)+|\+|-|\*|\/|\^|\(|\)/g);
+     $("#result").text(tokens + " : " + tokens.length + " tokens");
+
+     var outputQueue = new Array();
+     var operatorStack = new Array();
+
+     for (var i = 0; i < tokens.length; i++) {
+     var token = tokens[i];
+
+     if (isNaN(token)) {
+     if (token == "(") {
+     operatorStack.push(token);
+     }
+     // an operator found
+
+     } else {
+     // an operand (number) found
+     outputQueue.unshift(token);
+     }
+     }
+     });
+     });*/
+
+	var gui;
+	var win;
+	
+	var cmbValidationType;
+	var txtPattern;
+	var txtValue;
+	var btnTest;
+	
+	var validators = require("./validators");
+	var RegExValidator = validators.RegExValidator;
+	
+	var VALIDATION_REGEX = 0;
+	var VALIDATION_EMAIL = 1;
+
+    onload = function () {
+		gui = require('nw.gui');
+		
+		// Get the current window and set its title
+		win = gui.Window.get();
+		win.title = "Validators";
+		
+		cmbValidationType = document.getElementById("select_validation_type");
+		cmbValidationType.onchange = cmbValidationTypeOnChange;
+		
+		txtPattern = document.getElementById("input_pattern");
+		
+		txtValue = document.getElementById("input_value");
+		
+		btnTest = document.getElementById("button_test");
+		btnTest.onclick = btnTestOnClick;
+    };
+	
+	cmbValidationTypeOnChange = function() {
+		var selectedValidationType = cmbValidationType.selectedIndex;
+		txtPattern.disabled = (selectedValidationType !== VALIDATION_REGEX);
+	};
+	
+	btnTestOnClick = function() {
+		var pattern = txtPattern.value;
+		var value = txtValue.value;
+		var selectedValidationType = cmbValidationType.selectedIndex;
+		var validator = null;
+		
+		switch (selectedValidationType) {
+			case VALIDATION_REGEX:
+				var validator = new validators.RegExValidator(pattern);
+				break;
+				
+			case VALIDATION_EMAIL:
+				var validator = new validators.EmailValidator();
+				break;
+		}
+		
+		if (validator !== null) {
+			window.LOCAL_NW.desktopNotifications.notify("desktop-notify.png", "Validation Result", validator.validate(value), function(){
+				$('#status').text('Clicked on ' + "Validation Result");
+				$('#status').fadeIn('fast', function(){
+					setTimeout(function() {
+						$('#status').fadeOut('fast');
+					}, 1800);
+				});
+			});
+		}		
+	};
+</script>
+<div id="rpn_calculator">
+	<table>
+		<tr>
+			<td class="label_cell"><label for="select_validation_type">Select an operation&nbsp;:&nbsp;</label></td>
+			<td>
+				<select id="select_validation_type"
+						type="select-one">
+					<option>Normal RegEx Validation</option>
+					<option>Email Validation</option>
+				</select>
+			</td>
+		<tr>
+		<tr>
+			<td class="label_cell"><label for="input_pattern">Enter a regex pattern&nbsp;:&nbsp;</label></td>
+			<td>
+				<input type="text" id="input_pattern" value="^[\sa-z]*$"></input>
+			</td>
+		<tr>
+		<tr>
+			<td class="label_cell"><label for="input_value">Enter the string to test&nbsp;:&nbsp;</label></td>
+			<td>
+				<input type="text" id="input_value" value="transonhuy"></input>
+			</td>
+		<tr>
+		<tr>
+			<td colspan="2" style="text-align:center;">
+				<input type="button" id="button_test" value="Test"></input>
+			</td>
+		</tr>
+	<table>
+    
+    <div id="result"></div>
+</div>
+</body>
+</html>
