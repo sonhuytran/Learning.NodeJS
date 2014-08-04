@@ -1,0 +1,19 @@
+{
+    "name": "back-blog",
+    "version": "0.0.1",
+    "description": "This is a simple Backbone blog",
+
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+
+    "dependencies": {
+        "express": "3.x.x",
+        "ejs": "~0.8.4",
+        "bourne": "0.3"
+    },
+
+    "devDependencies": {
+        "nodemon": "latest"
+    }
+}
