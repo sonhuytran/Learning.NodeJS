@@ -16,8 +16,22 @@ app.configure(function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
+app.get('/posts', function (request, response) {
+    posts.find({}, function (error, results) {
+        response.json(results);
+    });
+});
+
+app.post('/posts', function (request, response) {
+    posts.insert(request.body, function (error, result) {
+        response.json(result);
+    });
+});
+
 app.get('/*', function (request, response) {
-    response.render('index.ejs');
+    posts.find(function (error, results) {
+        response.render('index.ejs', {posts: JSON.stringify(results)});
+    });
 });
 
 app.listen(3000);
