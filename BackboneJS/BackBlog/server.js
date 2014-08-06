@@ -8,6 +8,8 @@ var path = require('path');
 var Bourne = require('bourne');
 
 var app = express();
+
+// Bourne JSON database
 var posts = new Bourne('simpleBlogPosts.json');
 var comments = new Bourne('simpleBlogComments.json');
 

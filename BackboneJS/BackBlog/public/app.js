@@ -34,3 +34,26 @@ var PostsListView = Backbone.View.extend({
         return this;
     }
 });
+
+var PostRouter = Backbone.Router.extend({
+    initialize: function (options) {
+        this.posts = options.posts;
+        this.main = options.main;
+    },
+
+    routes: {
+        '': 'index',
+        'posts/:id': 'singlePost'
+    },
+
+    index: function () {
+        var postsListView = new PostsListView({
+            collection: this.posts
+        });
+        this.main.html(postsListView.render().el);
+    },
+
+    singlePost: function (id) {
+        console.log("view post " + id);
+    }
+});
