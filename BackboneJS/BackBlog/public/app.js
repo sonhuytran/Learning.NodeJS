@@ -32,6 +32,23 @@ var PostsListView = Backbone.View.extend({
         });
 
         return this;
+    },
+    events: {
+        'click a': 'handleClick'
+    },
+    /**
+     * Handle the click event on an 'a' tag
+     * @param e the event object
+     */
+    handleClick: function (e) {
+        e.preventDefault();
+
+        // Get the link
+        var linkElement = $(e.currentTarget);
+        var link = linkElement.attr('href');
+
+        // Navigate to the link
+        postRouter.navigate(link, {trigger: true});
     }
 });
 
