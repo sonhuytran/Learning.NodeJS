@@ -6,6 +6,31 @@ _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g
 };
 
+var PostRouter = Backbone.Router.extend({
+    initialize: function (options) {
+        this.posts = options.posts;
+        this.main = options.main;
+    },
+
+    routes: {
+        '': 'index',
+        'posts/:id': 'singlePost'
+    },
+
+    index: function () {
+        var postsListView = new PostsListView({
+            collection: this.posts
+        });
+        this.main.html(postsListView.render().el);
+    },
+
+    singlePost: function (id) {
+        var post = this.posts.get(id);
+        var pv = new PostView({model: post});
+        this.main.html(pv.render().el);
+    }
+});
+
 var Post = Backbone.Model.extend({});
 
 var Posts = Backbone.Collection.extend({
@@ -52,25 +77,42 @@ var PostsListView = Backbone.View.extend({
     }
 });
 
-var PostRouter = Backbone.Router.extend({
+var PostView = Backbone.View.extend({
+    /**
+     *
+     */
     initialize: function (options) {
-        this.posts = options.posts;
-        this.main = options.main;
+        this.model = options.model.toJSON();
+        this.template = _.template($("#postView").html());
+        this.model.pubDate = new Date(Date.parse(this.model.pubDate)).toDateString();
     },
+    /**
+     *
+     * @returns {PostView}
+     */
+    render: function () {
 
-    routes: {
-        '': 'index',
-        'posts/:id': 'singlePost'
+        this.el.innerHTML = this.template(this.model);
+
+        return this;
     },
-
-    index: function () {
-        var postsListView = new PostsListView({
-            collection: this.posts
-        });
-        this.main.html(postsListView.render().el);
+    /**
+     *
+     */
+    events: {
+        'click a': 'handleClick'
     },
+    /**
+     *
+     * @param e
+     */
+    handleClick: function (e) {
+        e.preventDefault();
 
-    singlePost: function (id) {
-        console.log("view post " + id);
+        var linkElement = $(e.currentTarget);
+        var link = linkElement.attr('href');
+
+        postRouter.navigate(link, {trigger: true});
+        return false;
     }
 });
