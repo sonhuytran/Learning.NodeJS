@@ -8,7 +8,8 @@
     "angular-animate": "*",
     "angular-mocks": "*",
     "angular-route": "*",
-    "angular-sanitize": "*"
+    "angular-sanitize": "*",
+    "bootstrap": "*"
   },
   "repository": {
     "private": true
