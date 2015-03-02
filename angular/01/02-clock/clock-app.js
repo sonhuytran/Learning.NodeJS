@@ -1,13 +1,15 @@
 /**
  * Created by stran on 02/03/2015.
  */
-var myApp = angular.module('myApp',[]);
+var clockApp = angular.module('clockApp',[]);
 
-myApp.controller('ClockController', ['$scope', function($scope) {
-    $scope.clock = new Date();
+clockApp.controller('ClockController', ['$scope', function($scope) {
+    $scope.clock = {
+        now: new Date()
+    };
 
     var updateClock = function () {
-        $scope.clock = new Date();
+        $scope.clock.now = new Date();
     };
 
     var ticked = function () {
