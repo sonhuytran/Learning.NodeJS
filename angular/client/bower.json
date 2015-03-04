@@ -1,0 +1,18 @@
+{
+  "name": "learning-angular-js",
+  "description": "Learning AngularJS",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.3.x",
+    "angular-touch": "1.3.x",
+    "angular-animate": "1.3.x",
+    "angular-mocks": "1.3.x",
+    "angular-route": "1.3.x",
+    "angular-sanitize": "1.3.x",
+    "bootstrap": "3.3.x",
+    "underscore": "1.8.x"
+  },
+  "repository": {
+    "private": true
+  }
+}

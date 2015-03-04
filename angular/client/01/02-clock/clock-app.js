@@ -1,9 +1,9 @@
 /**
  * Created by stran on 02/03/2015.
  */
-var clockApp = angular.module('clockApp',[]);
+var clockApp = angular.module('clockApp', []);
 
-clockApp.controller('ClockController', ['$scope', function($scope) {
+clockApp.controller('ClockController', ['$scope', function ($scope) {
     $scope.clock = {
         now: new Date()
     };
