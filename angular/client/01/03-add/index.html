@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="addApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Adding machine</title>
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="./add.js"></script>
+</head>
+<body>
+
+<div ng-controller="AddController">
+    <h3>Adding machine</h3>
+    <button ng-click="add(1)" class="button">Add</button>
+    <a ng-click="subtract(1)" class="button alert">Subtract</a>
+    <h4>Current count: {{counter}}</h4>
+</div>
+
+</body>
+</html>
