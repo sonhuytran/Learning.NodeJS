@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="booksApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title ng-bind="title"></title>
+</head>
+<body ng-controller="SiteController">
+
+<span>{{ publisher }} excels in {{ type }} books.</span>
+
+<div ng-controller="BookController">
+    <h3>Some of the popular books from {{ publisher }}:</h3>
+    <ul>
+        <li ng-repeat="book in books">
+            {{ book }}
+        </li>
+    </ul>
+</div>
+
+</body>
+
+<script src="../lib/angular/angular.min.js"></script>
+<script src="./app.js"></script>
+<script src="./controllers.js"></script>
+
+</html>
