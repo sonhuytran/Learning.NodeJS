@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="timeoutApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="TimeoutController">
+
+<!-- Click this button to start fetching message -->
+<button ng-click="fetchMessage()">Get message after 3 seconds.</button>
+
+<!--Display the result-->
+<p>{{ message }}</p>
+
+</body>
+
+<!-- Import scripts -->
+<script src="../lib/angular/angular.min.js"></script>
+<script src="app.js"></script>
+
+</html>
