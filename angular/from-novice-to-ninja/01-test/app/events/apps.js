@@ -20,18 +20,31 @@ angular.module('eventsApp.controllers').controller('MessageController', [
                 sender: 'user1',
                 text: 'random message #' + count
             });
-            timer = $timeout($scope.loadMessage(), 2000);
+            timer = $timeout($scope.loadMessage, 2000);
 
             if (count == 3) {
-                $scope.$broadcast('EVENT_NO_DATA', 'Not Connected');
+                $scope.$broadcast('EVENT_NO_DATA', 'Not Connected', 'red');
                 $timeout.cancel(timer);
             }
         };
 
-        timer = $timeout($scope.loadMessage(), 2000);
+        timer = $timeout($scope.loadMessage, 2000);
 
         $scope.$on('EVENT_RECEIVED', function () {
             console.log('Received emitted event');
         })
     }
 ]);
+
+angular.module('eventsApp.controllers').controller(
+    'StatsController', ['$scope', function ($scope) {
+        $scope.name = 'World';
+        $scope.status = 'Connected';
+        $scope.statusColor = 'green';
+        $scope.$on('EVENT_NO_DATA', function (event, status, statusColor) {
+            console.log('Received broadcast event');
+            $scope.status = status;
+            $scope.statusColor = statusColor;
+            $scope.$emit('EVENT_RECEIVED');
+        });
+    }]);
