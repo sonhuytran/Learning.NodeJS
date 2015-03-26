@@ -17,6 +17,9 @@ angular.module('routingApp').config(function ($routeProvider) {
         .when('/view2', {
             controller: 'Controller2',
             templateUrl: 'partials/view2.html'
+        })
+        .otherwise({
+            redirectTo: '/view1'
         });
 });
 
